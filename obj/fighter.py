@@ -1,5 +1,6 @@
 import pygame
 import os
+from .health_bars import HealthBar
 
 
 class Fighter:

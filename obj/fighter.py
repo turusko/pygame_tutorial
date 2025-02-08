@@ -22,6 +22,7 @@ class Fighter:
         self.rect.center = (x, y)
 
     def load_animation(self):
+        scale_image_amount = 3
         temp_master_list = []
         for animation_type in self.animation_list_types:
             temp_list = []
@@ -29,7 +30,8 @@ class Fighter:
 
             for i in range(num_of_frames):
                 img = pygame.image.load(f"img/{self.name}/{animation_type}/{i}.png")
-                img = pygame.transform.scale(img, (img.get_width()*3, img.get_height()*3))
+                img = pygame.transform.scale(img, (img.get_width()*scale_image_amount,
+                                                    img.get_height()*scale_image_amount))
                 temp_list.append(img)
             temp_master_list.append(temp_list)
         return temp_master_list

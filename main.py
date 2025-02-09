@@ -297,7 +297,7 @@ while run:
             if bandit_list[count].alive:
                 action_cooldown += 1
                 if action_cooldown >= action_wait_time:
-                    if action_bandit.hp < action_bandit.max_hp/2 and action_bandit.potions > 0:
+                    if action_bandit.hp < action_bandit.max_hp/2 and action_bandit.potions > 0 and random.choice([True, False]):
                         action_bandit.heal(potion_effect)                 
                         current_fighter += 1
                         action_cooldown = 0

@@ -174,7 +174,6 @@ class HealthBar:
 
     def draw(self, screen, hp):
         self.hp = hp
-        # Draw health bar
         pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, 150, 20))
         pygame.draw.rect(screen, (0, 255, 0), (self.x, self.y, 150 * (self.hp / self.max_health), 20))
 
@@ -320,10 +319,10 @@ while run:
         game_over = 1
 
     if game_over == 1:
-        screen.blit(victory_img, (250, 100))
+        draw_text("Victory", pygame.font.SysFont("Times New Roman", 64), green, 275, 100)
         draw_text("Press R to Restart", font, green, 275, 175)
     if game_over == -1:
-        screen.blit(defeat_img, (275, 100))
+        draw_text("Defeat", pygame.font.SysFont("Times New Roman", 64), red, 290, 100)
         draw_text("Press R to Restart", font, green, 275, 175)
         
            

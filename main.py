@@ -28,7 +28,14 @@ potion_effect = 15
 clicked = False
 game_over = 0
 
+sword_strike_sound = pygame.mixer.Sound("sounds/sword_strike.wav")
+hurt_sound_list = [pygame.mixer.Sound(f"sounds/hurt/hurt{i}.ogg") for i in range(len(os.listdir("sounds/hurt")))]
+death_sound = pygame.mixer.Sound("sounds/death/death_cry.wav")
+health_sound = pygame.mixer.Sound("sounds/health_potion.wav")
+background_music = pygame.mixer.Sound("sounds/background.wav")
 pygame.display.set_caption("Battle Game")
+
+background_music.play(-1)
 
 background = pygame.image.load("img/Background/background.png")
 
@@ -124,6 +131,7 @@ class Fighter:
             return False
 
         damage = self.strength + random.randint(-5, 5)
+        sword_strike_sound.play()
         enemy.hp -= damage
         if enemy.hp < 1:
             enemy.hp = 0
@@ -133,8 +141,10 @@ class Fighter:
         self.update_time = pygame.time.get_ticks()
         enemy.frame_index = 0
         if enemy.alive:
+            random.choice(hurt_sound_list).play()
             enemy.update_action("Hurt")
         else:
+            death_sound.play()
             enemy.update_action("Death")
         damage_text = DamageText(enemy.rect.centerx, enemy.rect.y-5, str(damage), red)
         damage_text_group.add(damage_text)
@@ -146,6 +156,7 @@ class Fighter:
         screen.blit(self.image, self.rect)
 
     def heal(self, amount):
+        health_sound.play()
         self.hp += amount
         if self.hp > self.max_hp:
             self.hp = self.max_hp
@@ -201,7 +212,7 @@ def draw_pannel():
     bandit2_health_bar.draw(screen, bandit2.hp)
 
         
-knight = Fighter(200, 260, "Knight", 30, 9, 3)
+knight = Fighter(200, 260, "Knight", 30, 11, 3)
 bandit1 = Fighter(550, 270, "Bandit", 20, 6, 1)
 bandit2 = Fighter(700, 270, "Bandit", 20, 6, 2)
 
